@@ -6,6 +6,7 @@
 /public/bundles/
 /var/
 /vendor/
+/inspinia_v2.9.2/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

@@ -19,6 +19,10 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('inspinia', './assets/js/inspinia.js')
+    .addEntry('menu', './assets/js/plugins/metisMenu/jquery.metisMenu.js')
+    .addEntry('slimscroll', './assets/js/plugins/slimscroll/jquery.slimscroll.min.js')
+    .addEntry('flot', './assets/js/plugins/flot/jquery.flot.js')
+
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

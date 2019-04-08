@@ -1,23 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: andredupre
- * Date: 2019-04-08
- * Time: 20:22
- */
 
-namespace App\Controller;
-
+namespace App\Controller\security;
 
 use App\Entity\User;
 use App\Form\UserType;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class RegistrationController extends AbstractController
+class SecurityController extends AbstractController
 {
+    /**
+     * @Route("/connexion", name="connexion")
+     */
+    public function login(Request $request, AuthenticationUtils $authUtils)
+    {
+        // get the mogin efrrir if there is one
+        $error = $authUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authUtils->getLastUsername();
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
+    }
 
     /**
      * @Route("/register", name="register")
@@ -52,5 +61,4 @@ class RegistrationController extends AbstractController
             array('form' => $form->createView())
         );
     }
-
 }
