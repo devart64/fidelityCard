@@ -14,8 +14,7 @@ require('../css/plugins/toastr/toastr.min.css');
 require('../js/plugins/gritter/jquery.gritter.css');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
-var $ = require('jquery');
+const $ = require('jquery');
 require('bootstrap');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+

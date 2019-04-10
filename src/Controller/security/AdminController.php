@@ -15,13 +15,29 @@ class AdminController extends AbstractController
 {
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/tableaudebord", name="admin")
      */
     public function admin()
     {
-
         return $this->render('administration/dashbord.html.twig');
     }
+
+    /**
+     * @Route("/liste-clients", name="listeclient")
+     */
+    public function listeClient()
+    {
+        return $this->render('administration/listeutilisateur.html.twig');
+    }
+
+    /**
+     * @Route("/ajout-clients", name="ajoutclient")
+     */
+    public function ajoutClient()
+    {
+        return $this->render('administration/nouvelutilisateur.html.twig');
+    }
+
 
 
 }
