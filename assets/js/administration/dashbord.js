@@ -12,4 +12,12 @@ $(document).on('click', '#nouvau-client', function () {
     $.post(url, function (data) {
         divCible.html(data);
     });
-})
+});
+
+$(document).on('click', '.bouton-profil', function () {
+    let url = $(this).attr('data-url');
+    var divCible = $('#divload');
+    $.post(url, function (data) {
+        divCible.html(data);
+    });
+});

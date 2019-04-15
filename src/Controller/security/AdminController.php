@@ -38,6 +38,13 @@ class AdminController extends AbstractController
         return $this->render('administration/nouvelutilisateur.html.twig');
     }
 
+    /**
+     * @Route("/compte-clients", name="compteclient")
+     */
+    public function compteClient() {
+        return $this->render('administration/compteutilisateur.html.twig');
+    }
+
 
 
 }
