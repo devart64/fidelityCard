@@ -1,3 +1,5 @@
+{% extends 'base.html.twig' %}
+{% block content %}
 <div class="ibox-content">
     <h2>Compte Client</h2>
     <div class="col-sm-12-offset-2">
@@ -10,12 +12,14 @@
                 <div class="">
                     <div>
                         <h2 class="no-margins">
-                            Adrien G
+                            {{ client.nom }} {{ client.prenom }}
                         </h2>
-                        <h4>06.68.69.69.69</h4>
-                        <h4>adrieng@gmail.com</h4>
+                        <h4>{{ client.telephone }}</h4>
+                        <h4>{{ client.email }}</h4>
                         <span>
-                            3 allée Larre Goiti 64310 Ascain
+                            {{ client.rue }}
+                            {{ client.codepostall }}
+                            {{ client.ville }}
                         </span>
                     </div>
                 </div>
@@ -25,3 +29,4 @@
     </div>
 
     </div>
+{% endblock %}

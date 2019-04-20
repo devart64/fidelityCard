@@ -1,6 +1,17 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
 
-{% block body %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Entre Nous | tableau de bord{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+
+    {% endblock %}
+</head>
+<body class="gray-bg">
     <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
     <div>
@@ -28,4 +39,5 @@
 
     </div>
     </div>
-{% endblock %}
+</body>
+</html>

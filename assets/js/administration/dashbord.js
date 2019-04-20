@@ -1,23 +1,7 @@
-$(document).ready(function () {
-    var divCible = $('#divload'),
-        url = divCible.attr('data-url-liste-client');
-    $.post(url, function (data) {
-        divCible.html(data);
-    });
+
+$('.zone-cliquable').on('click', function () {
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $('#btn-cache-'+id).click();
 });
 
-$(document).on('click', '#nouvau-client', function () {
-    var divCible = $('#divload'),
-        url = divCible.attr('data-url-ajout-client');
-    $.post(url, function (data) {
-        divCible.html(data);
-    });
-});
-
-$(document).on('click', '.bouton-profil', function () {
-    let url = $(this).attr('data-url');
-    var divCible = $('#divload');
-    $.post(url, function (data) {
-        divCible.html(data);
-    });
-});
