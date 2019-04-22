@@ -4,4 +4,7 @@ $('.zone-cliquable').on('click', function () {
     console.log(id);
     $('#btn-cache-'+id).click();
 });
-
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});

@@ -11,6 +11,7 @@ require('../font-awesome/css/font-awesome.css');
 require('../css/animate.css');
 require('../css/style.css');
 require('../css/plugins/toastr/toastr.min.css');
+require('../css/simple-sidebar.css');
 require('../js/plugins/gritter/jquery.gritter.css');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.

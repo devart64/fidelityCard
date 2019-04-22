@@ -12,7 +12,7 @@
         {% endblock %}
     </head>
     <body class="gray-bg">
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+ {#   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><h1>Entre Nous</h1></a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
@@ -89,7 +89,7 @@
                 <div class="wrapper wrapper-content  animated fadeInRight">
                     <div class="row">
                         <div class="col-sm-12">
-                            {# div de load des pages #}
+                            #}{# div de load des pages #}{#
                             {% block content %}{% endblock %}
                         </div>
 
@@ -99,15 +99,74 @@
 
             </main>
         </div>
-    </div>
+    </div>#}
+ <div class="d-flex toggled" id="wrapper">
+
+     <!-- Sidebar -->
+     <div class="bg-light border-right" id="sidebar-wrapper">
+         <div class="sidebar-heading">Entre Nous </div>
+         <div class="list-group list-group-flush">
+             <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+             <a href="{{ path('listeclient') }}" class="list-group-item list-group-item-action bg-light">Clients</a>
+             <a href="#" class="list-group-item list-group-item-action bg-light">Email</a>
+             <a href="#" class="list-group-item list-group-item-action bg-light">News Letters</a>
+         </div>
+     </div>
+     <!-- /#sidebar-wrapper -->
+
+     <!-- Page Content -->
+     <div id="page-content-wrapper">
+
+         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+             <button  id="menu-toggle">Espace Administration</button>
+
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+             </button>
+
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+                     <li class="nav-item active">
+                         <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="#">Link</a>
+                     </li>
+                     <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Dropdown
+                         </a>
+                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                             <a class="dropdown-item" href="#">Se connecter</a>
+                             <a class="dropdown-item" href="#">S'inscrire</a>
+                             <div class="dropdown-divider"></div>
+                             <a class="dropdown-item" href="#">Se déconnecter</a>
+                         </div>
+                     </li>
+                 </ul>
+             </div>
+         </nav>
+
+         <div class="container-fluid">
+             {{ dump(app.session.get('user')) }}
+             {% block content %}{% endblock %}
+              </div>
+     </div>
+     <!-- /#page-content-wrapper -->
+
+ </div>
+ <!-- /#wrapper -->
     {% block javascripts %}
+        {{ encore_entry_script_tags('popper') }}
         {{ encore_entry_script_tags('dashbord') }}
 
         <!-- Renders app.js & a webpack runtime.js file
             <script src="/build/runtime.js"></script>
             <script src="/build/app.js"></script> -->
     {% endblock %}
-        <!-- Mainly scripts -->
+
+ <!-- Mainly scripts -->
 
     </body>
 </html>
