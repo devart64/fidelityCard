@@ -54,7 +54,7 @@ class User implements UserInterface
     private $roles;
 
     public function __construct() {
-        $this->roles = array('ROLE_ADMIN');
+        $this->roles = array('ROLE_USER');
     }
 
     // other properties and methods
@@ -62,6 +62,10 @@ class User implements UserInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 
     public function setEmail($email)

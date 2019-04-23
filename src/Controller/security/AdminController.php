@@ -19,7 +19,7 @@ class AdminController extends AbstractController
 {
 
     /**
-     * @Route("/", name="admin")
+     * @Route("tableaudebord", name="admin")
      */
     public function admin()
     {
@@ -29,7 +29,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/liste-clients", name="listeclient")
+     * @Route("tableaudebord/liste-clients", name="listeclient")
      */
     public function listeClient()
     {
@@ -39,7 +39,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/ajout-clients", name="ajoutclient")
+     * @Route("tableaudebord/ajout-clients", name="ajoutclient")
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -73,7 +73,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/compte-clients{id}", name="compteclient")
+     * @Route("tableaudebord/compte-clients{id}", name="compteclient")
      * @param $id
      * @return Response
      */

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Entre Nous | tableau de bord{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+
+    {% endblock %}
+</head>
+<body class="gray-bg">
+
+<div id="page-content-wrapper">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><h1>Entre Nous</h1></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('profil') }}">Mon compte</a>
+                </li>
+                <li class="nav-item">
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                        <a class="nav-link " href="/deconnexion" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Déconnexion
+                        </a>
+                    {% else %}
+                        <a class="nav-link" href="/connexion" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Connexion
+                        </a>
+                    {% endif %}
+                    {# <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                         <a class="dropdown-item" href="#">Se connecter</a>
+                         <a class="dropdown-item" href="#">S'inscrire</a>
+                         <div class="dropdown-divider"></div>
+                         <a class="dropdown-item" href="#">Se déconnecter</a>
+                     </div>#}
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
