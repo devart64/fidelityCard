@@ -29,9 +29,16 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('profil') }}">Mon compte</a>
-                </li>
+                {% if  is_granted('ROLE_USER') and  is_granted('ROLE_ADMIN') == false%}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('profil') }}">Mon compte</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN')  %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin') }}">Administration</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                         <a class="nav-link " href="/deconnexion" id="navbarDropdown" role="button"
