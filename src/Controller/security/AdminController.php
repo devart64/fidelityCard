@@ -26,10 +26,20 @@ class AdminController extends AbstractController
     public function admin()
     {
 
-        $repository = $this->getDoctrine()->getRepository(Client::class);
-        $clients = $repository->findBy([
-            'nom' => 'asc'
-        ]);
+        $conn = $this->getDoctrine()->getConnection();
+        $requete = "SELECT * FROM client order by client.nom ASC";
+        $statment= $conn->prepare($requete);
+        $statment->execute();
+        $statment->setFetchMode(PDO::FETCH_OBJ);
+
+        $array = array();
+        while ($data = $statment->fetch()) {
+
+
+            $array[] = $data;
+        }
+
+        $clients = $array;
 
         $alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
         return $this->render('administration/listeutilisateur.html.twig', ['clients' => $clients, 'alphabet' => $alphabet]);
@@ -59,9 +69,7 @@ $clients = $array;
         $alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
         return $this->render('administration/listeutilisateur.html.twig', ['clients' => $clients, 'alphabet' => $alphabet]);
     }
-    public  function comparer($a, $b) {
-        return strcmp($a->nom, $b->nom);
-    }
+
 
 
 

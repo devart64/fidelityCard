@@ -1,7 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block content %}
+    <style>
+        input[type=checkbox]{
+            /* Double-sized Checkboxes */
+            -ms-transform: scale(2); /* IE */
+            -moz-transform: scale(2); /* FF */
+            -webkit-transform: scale(2); /* Safari and Chrome */
+            -o-transform: scale(2); /* Opera */
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
 <div class="ibox-content">
+    <br><br>
     <h2>Compte Client</h2>
+    <br>
     <div class="col-sm-12-offset-2">
 
 
@@ -24,7 +37,40 @@
                     </div>
                 </div>
             </div>
+        <br><br>
+        <div class="card-group col-xs-6 col-offset-2">
+            <div class="card">
+                <h5 class="card-title commentaire-pizza">Encore <span class="nbPizzaRestante">0</span> pizza avant la pizza gratuite !</h5>
+                <h3 class="pizza-gratuite" style="display: none;">La prochaine Pizza sera gratuite !</h3>
+                <div class="card-body">
+                    <h5 class="card-title">Carte n°1</h5>
+                    <div class="card-text">
+                        <div class="container col-xs-12" style="border: 1px solid rgba(0, 0, 0, 0.125);background-color:rgba(0, 0, 0, 0.1);text-align: center">
+                        <div class="row col-xs-12" style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                        </div>
+                        <div class="row col-xs-12" style="margin-bottom: 50px; display: block;margin-left:auto;margin-right: auto;">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                            <input class="form-group pizza" type="checkbox">
+                        </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Dernière Pizza achetée le 27/04/2019</small>
+                </div>
+            </div>
+
+
+        </div>
 
     </div>
 
