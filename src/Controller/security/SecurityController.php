@@ -22,6 +22,7 @@ class SecurityController extends AbstractController
 
         // last username entered by the user
         $lastUsername = $authUtils->getLastUsername();
+      
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
@@ -53,7 +54,7 @@ class SecurityController extends AbstractController
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 
-            return $this->redirectToRoute('register');
+            return $this->redirectToRoute('connexion');
         }
 
         return $this->render(

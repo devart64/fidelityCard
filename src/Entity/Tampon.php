@@ -26,6 +26,11 @@ class Tampon
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $dernier_tampon;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,4 +59,22 @@ class Tampon
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDernierTampon()
+    {
+        return $this->dernier_tampon;
+    }
+
+    /**
+     * @param mixed $dernier_tampon
+     */
+    public function setDernierTampon($dernier_tampon): void
+    {
+        $this->dernier_tampon = $dernier_tampon;
+    }
+
+
 }

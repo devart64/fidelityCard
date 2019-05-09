@@ -26,6 +26,16 @@ class CarteDeFidelite
      */
     private $id_client;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nb_tampon;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $dernier_tampon;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -58,6 +68,42 @@ class CarteDeFidelite
     {
         $this->id_client = $id_client;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNbTampon()
+    {
+        return $this->nb_tampon;
+    }
+
+    /**
+     * @param mixed $nb_tampon
+     */
+    public function setNbTampon($nb_tampon): void
+    {
+        $this->nb_tampon = $nb_tampon;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getDernierTampon()
+    {
+        return $this->dernier_tampon;
+    }
+
+    /**
+     * @param mixed $dernier_tampon
+     */
+    public function setDernierTampon($dernier_tampon): void
+    {
+        $this->dernier_tampon = $dernier_tampon;
+    }
+
+
 
 
 }
