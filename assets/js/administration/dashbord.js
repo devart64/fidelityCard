@@ -5,6 +5,8 @@ $(document).ready(function () {
 $('.zone-cliquable').on('click', function () {
     var id = $(this).attr('data-id');
     console.log(id);
+
+    // trouver pourtquoi le cliqueq ne foncitonne pas
     $('#btn-cache-'+id).click();
 });
 $("#menu-toggle").click(function(e) {
@@ -12,6 +14,7 @@ $("#menu-toggle").click(function(e) {
     $("#wrapper").toggleClass("toggled");
 });
 $(document).on('change', '.pizza', function () {
+    // envoi de l'id du tampon a checked
     let nbTampon = $('.pizza:checked').length;
     let idCarteDeFidelite = $("#carte_id").val();
     let url = $("#url-tampon").val();
@@ -42,6 +45,20 @@ function coherenceCheckbox() {
 }
 
 /**
+ * gestion de la checkbox pizza gratuite
+ * et création de la carte  suivante.
+ */
+$(document).on('change', '#pizza-gratuite', function () {
+    if ($("#pizza-gratuite").is(':checked')) {
+        $('.pizza-gratuite').fadeOut();
+        // archivage de  cette carte
+        // création de la nouvelle
+    } else {
+        $('.pizza-gratuite').fadeIn();
+    }
+});
+
+/**
  * gestion du formulaire de recherche
  */
 $(document).on('keyup', '#input-recherche', throttle(function () {
@@ -61,6 +78,19 @@ $(document).on('keyup', '#input-recherche', throttle(function () {
 
 }));
 
+$(document).on('click', '#dropdownMenuButton', function () {
+    if ($('.dropdown-menu').is(':visible') === false) {
+        $('.dropdown-menu').show();
+    } else {
+        $('.dropdown-menu').fadeOut();
+    }
+});
+
+$('.custom-file-input').on('change', function() {
+    let fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+});
+
 $(document).on('click', '#modifier-info-client', function () {
    $("#form-upadate-info").fadeIn();
 });
@@ -75,6 +105,10 @@ $(document).on('keyup', '#your-email', throttle(function(){
     verifDoublonMail(emailAVerifier);
 }, 1000));
 
+/**
+ * funciton  de vérification des doublons de mail
+ * @param mail
+ */
 function verifDoublonMail(mail) {
     let url = $("#url-verif-mail").val();
     $.post(url, {mail:mail}, function (data) {
@@ -96,7 +130,7 @@ function verifDoublonMail(mail) {
  * @param telephoner
  */
 function verifTelphone(telephoner) {
-
+// a voir si il estv possible pour deu compte d'avoir len meme numéro
 }
 $(document).on('click', '.pizza-cadre', function () {
     let image = $(".image-template");
@@ -111,7 +145,6 @@ $(document).on('click', '.pizza-cadre', function () {
     let idCarteDeFidelite = $("#carte_id").val();
     let url = $("#url-tampon").val();
     $.post(url, {nbTampon:nbTampon, idCarteDeFidelite:idCarteDeFidelite});
-    coherenceCheckbox();
     coherenceCheckbox();
 });
 

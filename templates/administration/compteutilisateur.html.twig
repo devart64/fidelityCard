@@ -18,8 +18,6 @@
     <h2>Compte Client</h2>
     <br>
     <div class="col-sm-12-offset-2">
-
-
             <div class="profile-image">
                 <img src="{{ asset('images/a1.jpg') }}" alt="profile">
             </div>
@@ -83,12 +81,23 @@
         </div>
         <br><br>
 
-
         <div class="card-group col-xs-6 col-offset-2">
-            <div class="card">
 
+            <div class="card">
                 <input type="hidden" id="carte_id" value="{{ carte.id }}">
                 <input type="hidden" id="url-tampon" value="{{ path('ajouttampon') }}">
+                <br/>
+                <div class="dropdown">
+                    <button class="btn btn-primary" type="button" id="dropdownMenuButton">
+                        Choisissez un tampon !
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <br><br>
                 <h5 class="card-title commentaire-pizza">Encore <span class="nbPizzaRestante">0</span> pizza avant la pizza gratuite !</h5>
                 <h3 class="pizza-gratuite" style="display: none;font-family: VosterAlt; font-weight: 600">La prochaine Pizza sera gratuite !</h3>
                 <div class="card-body">
@@ -97,71 +106,29 @@
                         <img class="image-template" style="display: none;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
                         <div class="container col-xs-12" style="border: 1px solid rgba(233,162,137, 0.125);background-color:rgba(233,162,137, 0.1);text-align: center">
                             <div class="row col-xs-12" style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none;" {% if carte.nb_tampon >= 1 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 1 %}
-                                    <img class="image-tampon" style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
+                                {% for tampon in tampons %}
+                                    {% if loop.index <= 5 %}
+                                    <div class="pizza-cadre">
+                                        <input class="form-group pizza" type="checkbox" style="display: none;" {% if tampon.is_Cocher == 1 %}checked="checked{% endif %}">
+                                    {% if tampon.is_Cocher == 1 %}
+                                            <img class="image-tampon" style="display: inline-block;" src="{{ asset('images/') }}{{ tampon.image }}" width="45" height="45" alt="">
+                                        {% endif %}
+                                    </div>
                                     {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none;" {% if carte.nb_tampon >= 2 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 2 %}
-                                    <img  class="image-tampon" style="display: block;" src="{{ asset('images/pizzaiolo.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none;" {% if carte.nb_tampon >= 3 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 3 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none;" {% if carte.nb_tampon >= 4 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 4 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none;" {% if carte.nb_tampon >= 5 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 5 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
+                                {% endfor %}
                             </div>
                             <div class="row col-xs-12" style="margin-top: 20px; display: block;margin-left:auto;margin-right: auto;">
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none" {% if carte.nb_tampon >= 6 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 6 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
+                                {% for tampon in tampons %}
+                                    {% if loop.index > 5 %}
+                                        <div class="pizza-cadre">
+                                            <input class="form-group pizza" type="checkbox" style="display: none;" {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
+                                    {% if tampon.is_Cocher == 1 %}
+                                            <img class="image-tampon" style="display: inline-block;" src="{{ asset('images/') }}{{ tampon.image }}" width="45" height="45" alt="">
+                                        {% endif %}
+                                        </div>
                                     {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none" {% if carte.nb_tampon >= 7 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 7 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none" {% if carte.nb_tampon >= 8 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 8 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none" {% if carte.nb_tampon >= 9 %}checked{% endif %}>
-                                    {% if carte.nb_tampon >= 9 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
-                                <div class="pizza-cadre">
-                                    <input class="form-group pizza" type="checkbox" style="display: none" {% if carte.nb_tampon == 10 %}checked{% endif %}>
-                                    {% if carte.nb_tampon == 10 %}
-                                        <img class="image-tampon"  style="display: block;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                                    {% endif %}
-                                </div>
+                                {% endfor %}
                             </div>
-
-
                             <div id="div-pizza-gratuite" style="display: none;">
                                 <label for="pizza-gratuite"><span style="font-size: 1.5em;margin-right: 10px;">Pizza gratuite</span></label>
                             <input id="pizza-gratuite" type="checkbox">

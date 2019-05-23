@@ -19,7 +19,7 @@ class Tampon
     /**
      * @ORM\Column(type="integer")
      */
-    private $idFidelityCard;
+    private $idCarteFidelite;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -29,21 +29,26 @@ class Tampon
     /**
      * @ORM\Column(type="integer")
      */
-    private $dernier_tampon;
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $isCocher;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdFidelityCard(): ?int
+    public function getIdCarteFidelite(): ?int
     {
-        return $this->idFidelityCard;
+        return $this->idCarteFidelite;
     }
 
-    public function setIdFidelityCard(int $idFidelityCard): self
+    public function setIdCarteFidelite(int $idCarteFidelite): self
     {
-        $this->idFidelityCard = $idFidelityCard;
+        $this->idCarteFidelite = $idCarteFidelite;
 
         return $this;
     }
@@ -63,18 +68,36 @@ class Tampon
     /**
      * @return mixed
      */
-    public function getDernierTampon()
+    public function getDateCreation()
     {
-        return $this->dernier_tampon;
+        return $this->dateCreation;
     }
 
     /**
-     * @param mixed $dernier_tampon
+     * @param mixed $dateCreation
      */
-    public function setDernierTampon($dernier_tampon): void
+    public function setDateCreation($dateCreation): void
     {
-        $this->dernier_tampon = $dernier_tampon;
+        $this->dateCreation = $dateCreation;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsCocher()
+    {
+        return $this->isCocher;
+    }
+
+    /**
+     * @param mixed $isCocher
+     */
+    public function setIsCocher($isCocher): void
+    {
+        $this->isCocher = $isCocher;
+    }
+
+
 
 
 }

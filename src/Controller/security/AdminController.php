@@ -112,6 +112,22 @@ $clients = $array;
 
                 $entityManager->persist($carteDeFidelite);
                 $entityManager->flush();
+                for ($i = 0; $i<10; $i++) {
+                    $tampon = new Tampon();
+                    $tampon->setImage("");
+                    $tampon->setIdCarteFidelite($carteDeFidelite->getId());
+                    $tampon->setDateCreation(time());
+                    $tampon->setIsCocher(0);
+
+                    $entityManager->persist($tampon);
+                    $entityManager->flush();
+                }
+
+                /**
+                 * envoi d'un mail  à l'adresse renseignée
+                 * avec un lien de création de mot de passe afin de valider le compte$
+                 * et de pouvoir si connecter
+                 */
             }
 
             return $this->redirectToRoute('compteclient', ['id' => $client->getId()]);
@@ -136,9 +152,19 @@ $clients = $array;
         $statment->setFetchMode(PDO::FETCH_OBJ);
 
         $carte = $statment->fetch();
+        $requete = "SELECT * FROM tampon  where id_carte_fidelite = $carte->id";
+        $statment= $conn->prepare($requete);
+        $statment->execute();
+        $statment->setFetchMode(PDO::FETCH_OBJ);
 
+        $array = array();
+        while ($data = $statment->fetch()) {
+            $array[] = $data;
+        }
 
-        return $this->render('administration/compteutilisateur.html.twig', ['client' => $client, 'carte' => $carte]);
+        $tampons = $array;
+
+        return $this->render('administration/compteutilisateur.html.twig', ['client' => $client, 'carte' => $carte, 'tampons'=>$tampons]);
     }
 
     /**
@@ -147,6 +173,8 @@ $clients = $array;
      * @return Response
      */
     public function ajouterTampon(Request $request) {
+        // on récupère l'id du tampon
+        // on update celui ci is``Cocher = 1
         $conn = $this->getDoctrine()->getConnection();
         $emailManager = new EmailManager($conn);
         $id = $request->get('idCarteDeFidelite');
@@ -160,6 +188,11 @@ $clients = $array;
         $entityManager->persist($carte);
         $entityManager->flush();
         if ($nbTampon == 10) {
+
+            // si envoi mail prochaine pizza gratuite
+            // si checkbox pizza gruite checjked
+            // on archive la carte et en créé une  ouvelle
+
             $idClient = $carte->getIdClient();
             $client = $this->getDoctrine()->getRepository(Client::class)->find($idClient);
             $emailManager->emailPizzaGratuite($client);
@@ -182,8 +215,6 @@ $clients = $array;
 
         $array = array();
         while ($data = $statment->fetch()) {
-
-
             $array[] = $data;
         }
 
@@ -217,7 +248,6 @@ $clients = $array;
        if ($nb != 0) {
            $result = 'false';
        }
-
         return new Response($result);
     }
 
