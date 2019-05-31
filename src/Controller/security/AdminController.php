@@ -12,7 +12,6 @@ use App\Entity\CarteDeFidelite;
 use App\Entity\Client;
 use App\Entity\Tampon;
 use App\manager\EmailManager;
-use Doctrine\ORM\QueryBuilder;
 use PDO;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -235,6 +234,7 @@ $clients = $array;
     /**
      * @Route("tableaudebord/verif-email", name="verifemail")
      * @return Response
+     * fonciton de vérifaction de duplication du  mail
      */
     public function verifEmail(Request $request) {
         $adressMail = $request->get('mail');
