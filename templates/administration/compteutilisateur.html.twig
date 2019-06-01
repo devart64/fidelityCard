@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block content %}
     <style>
-        input[type=checkbox]{
+        input[type=checkbox] {
             /* Double-sized Checkboxes */
             -ms-transform: scale(2); /* IE */
             -moz-transform: scale(2); /* FF */
@@ -11,13 +11,13 @@
             margin-top: 20px;
         }
     </style>
-<div class="ibox-content">
+    <div class="ibox-content">
 
-    <a class="btn btn-primary" href="{{ path('listeclient') }}">Retour à la liste</a>
-    <br> <br>
-    <h2>Compte Client</h2>
-    <br>
-    <div class="col-sm-12-offset-2">
+        <a class="btn btn-primary" href="{{ path('listeclient') }}">Retour à la liste</a>
+        <br> <br>
+        <h2>Compte Client</h2>
+        <br>
+        <div class="col-sm-12-offset-2">
             <div class="profile-image">
                 <img src="{{ asset('images/a1.jpg') }}" alt="profile">
             </div>
@@ -37,118 +37,152 @@
                     </div>
                 </div>
             </div>
-        <a class="btn btn-primary" id="modifier-info-client" href="#">Modifier les infos</a>
-        <br>     <br>
-        <div class="ibox-content" id="form-upadate-info" style="display: none;">
+            <a class="btn btn-primary" id="modifier-info-client" href="#">Modifier les infos</a>
+            <br> <br>
+            <div class="ibox-content" id="form-upadate-info" style="display: none;">
 
-        <form class="col-sm-12-offset-2" action="{{ path('ajoutclient') }}" method="post">
-            <input type="hidden" id="url-verif-mail" value="{{ path('verifemail') }}">
-            <input type="hidden" name="idClient" value="{{ client.id }}">
-            <div class="col-sm-10 col-sm-offset-2">
-                <div class="form-group">
-                    <label for="full-name">Nom</label>
-                    <input type="text" name="nom" id="full-name" class="form-control" placeholder="Nom" required value="{{ client.nom }}">
-                </div>
-                <div class="form-group">
-                    <label for="full-name">Prénom</label>
-                    <input type="text" name="prenom" id="full-name" class="form-control" placeholder="Prénom" required value="{{ client.prenom }}">
-                </div>
-                <div class="form-group">
-                    <label for="your-email">Email</label>
-                    <input type="text" name="email" id="your-email" class="form-control" placeholder="Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" value="{{ client.email }}">
-                </div>
-                <h3 id="email-exist" class="error" style="color: red;display: none;">Cette adresse mail existe déjà !</h3>
+                <form class="col-sm-12-offset-2" action="{{ path('ajoutclient') }}" method="post">
+                    <input type="hidden" id="url-verif-mail" value="{{ path('verifemail') }}">
+                    <input type="hidden" name="idClient" value="{{ client.id }}">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <div class="form-group">
+                            <label for="full-name">Nom</label>
+                            <input type="text" name="nom" id="full-name" class="form-control" placeholder="Nom" required
+                                   value="{{ client.nom }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="full-name">Prénom</label>
+                            <input type="text" name="prenom" id="full-name" class="form-control" placeholder="Prénom"
+                                   required value="{{ client.prenom }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="your-email">Email</label>
+                            <input type="text" name="email" id="your-email" class="form-control" placeholder="Email"
+                                   required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" value="{{ client.email }}">
+                        </div>
+                        <h3 id="email-exist" class="error" style="color: red;display: none;">Cette adresse mail existe
+                            déjà !</h3>
 
-                <div class="form-group">
-                    <label for="your-phone">Téléphone</label>
-                    <input type="tel" name="telephone" id="your-phone" class="form-control" placeholder="Téléphone" value="{{ client.telephone }}">
-                </div>
-                <h3 id="tel-exist" class="error" style="color: red;display: none;">Cette numéro existe déjà !</h3>
+                        <div class="form-group">
+                            <label for="your-phone">Téléphone</label>
+                            <input type="tel" name="telephone" id="your-phone" class="form-control"
+                                   placeholder="Téléphone" value="{{ client.telephone }}">
+                        </div>
+                        <h3 id="tel-exist" class="error" style="color: red;display: none;">Cette numéro existe déjà
+                            !</h3>
 
-                <div class="form-group">
-                    <label for="your-phone">Adresse</label>
-                    <input type="text" name="rue" id="rue" class="form-control" placeholder="rue" value="{{ client.rue }}">
-                    <br>
-                    <input type="text" name="codepostal" id="rue" class="form-control col-sm-4 inline" placeholder="code postal" value="{{ client.codepostall }}">
-                    <input type="text" name="ville" id="rue" class="form-control col-sm-4 inline" placeholder="ville" value="{{ client.ville }}">
-                </div>
-                <div class="form-row-last">
-                    <input type="submit" name="register" class="register btn btn-primary" value="Enregistrer">
-                    <a class="btn btn-primary" id="annuler-modif-info-client" href="#">Annuler</a>
-                </div>
-            </div>
-        </form>
-        </div>
-        <br><br>
-
-        <div class="card-group col-xs-6 col-offset-2">
-
-            <div class="card">
-                <input type="hidden" id="carte_id" value="{{ carte.id }}">
-                <input type="hidden" id="url-tampon" value="{{ path('ajouttampon') }}">
-                <br/>
-                <div class="dropdown">
-                    <button class="btn btn-primary" type="button" id="dropdownMenuButton">
-                        Choisissez un tampon !
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="form-group">
+                            <label for="your-phone">Adresse</label>
+                            <input type="text" name="rue" id="rue" class="form-control" placeholder="rue"
+                                   value="{{ client.rue }}">
+                            <br>
+                            <input type="text" name="codepostal" id="rue" class="form-control col-sm-4 inline"
+                                   placeholder="code postal" value="{{ client.codepostall }}">
+                            <input type="text" name="ville" id="rue" class="form-control col-sm-4 inline"
+                                   placeholder="ville" value="{{ client.ville }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="custom-file" id="customFile">
+                                <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                                <span class="custom-file-control form-control-file"></span>
+                            </label>
+                        </div>
+                        <div class="form-row-last">
+                            <input type="submit" name="register" class="register btn btn-primary" value="Enregistrer">
+                            <a class="btn btn-primary" id="annuler-modif-info-client" href="#">Annuler</a>
+                        </div>
                     </div>
-                </div>
-                <br><br>
-                <h5 class="card-title commentaire-pizza">Encore <span class="nbPizzaRestante">0</span> pizza avant la pizza gratuite !</h5>
-                <h3 class="pizza-gratuite" style="display: none;font-family: VosterAlt; font-weight: 600">La prochaine Pizza sera gratuite !</h3>
-                <div class="card-body">
-                    <h5 class="card-title">Carte n°1</h5>
-                    <div class="card-text">
-                        <img class="image-template" style="display: none;" src="{{ asset('images/pizza.png') }}" width="45" height="45" alt="">
-                        <div class="container col-xs-12" style="border: 1px solid rgba(233,162,137, 0.125);background-color:rgba(233,162,137, 0.1);text-align: center">
-                            <div class="row col-xs-12" style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
-                                {% for tampon in tampons %}
-                                    {% if loop.index <= 5 %}
-                                    <div class="pizza-cadre">
-                                        <input class="form-group pizza" type="checkbox" style="display: none;" {% if tampon.is_Cocher == 1 %}checked="checked{% endif %}">
-                                    {% if tampon.is_Cocher == 1 %}
-                                            <img class="image-tampon" style="display: inline-block;" src="{{ asset('images/') }}{{ tampon.image }}" width="45" height="45" alt="">
+                </form>
+            </div>
+            <br><br>
+
+            <div class="card-group col-xs-6 col-offset-2">
+
+                <div class="card">
+                    <input type="hidden" id="carte_id" value="{{ carte.id }}">
+                    <input type="hidden" id="url-tampon" value="{{ path('ajouttampon') }}">
+                    <br/>
+                    <div class="dropdown" style="display: inline-block; max-width: 20%">
+                        <button class="btn btn-primary" type="button" id="dropdownMenuButton">
+                            Choisissez un tampon !
+                        </button>
+                        <div class="dropdown-menu">
+                            {% for imagetampon in listeImageTampon %}
+                                <a class="dropdown-item"><input id="tampon-{{ imagetampon.nom }}" class="image-item-tampon" data-image="{{ imagetampon.image }}" type="radio" name="image-tampon" value="{{ imagetampon.image }}"><label for="tampon-{{ imagetampon.nom }}"><img
+                                            src="{{ asset('images') }}/{{ imagetampon.image }}" width="35" height="35"
+                                            alt=""> - {{ imagetampon.nom }}</label></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div style="display: inline-block;">Vous utilisez le tampon : <img id="image-utilisee" src="" width="35" height="35" alt=""></div>
+                    <input type="hidden" id="image-tampon-selected">
+                    <br><br>
+                    <h5 class="card-title commentaire-pizza">Encore <span class="nbPizzaRestante">0</span> pizza avant
+                        la pizza gratuite !</h5>
+                    <h3 class="pizza-gratuite" style="display: none;font-family: VosterAlt; font-weight: 600">La
+                        prochaine Pizza sera gratuite !</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">Carte n°1</h5>
+                        <div class="card-text">
+                            <img class="image-template" style="display: none;" src="{{ asset('images/pizza.png') }}"
+                                 width="45" height="45" alt="">
+                            <div class="container col-xs-12"
+                                 style="border: 1px solid rgba(233,162,137, 0.125);background-color:rgba(233,162,137, 0.1);text-align: center">
+                                <div class="row col-xs-12"
+                                     style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
+                                    {% for tampon in tampons %}
+                                        {% if loop.index <= 5 %}
+                                            <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
+                                                <input class="form-group pizza checkbox-tampon-{{ tampon.id }}" id="checkbox-tampon-{{ tampon.id }}" style="display: none;" type="checkbox"
+                                                       data-id="{{ tampon.id }}"
+                                                       {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
+
+                                                <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
+                                                     src="{{ asset('images/') }}{{ tampon.image }}" width="45"
+                                                     height="45" alt="">
+
+                                            </label>
                                         {% endif %}
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="row col-xs-12" style="margin-top: 20px; display: block;margin-left:auto;margin-right: auto;">
-                                {% for tampon in tampons %}
-                                    {% if loop.index > 5 %}
-                                        <div class="pizza-cadre">
-                                            <input class="form-group pizza" type="checkbox" style="display: none;" {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
-                                    {% if tampon.is_Cocher == 1 %}
-                                            <img class="image-tampon" style="display: inline-block;" src="{{ asset('images/') }}{{ tampon.image }}" width="45" height="45" alt="">
+                                    {% endfor %}
+                                </div>
+                                <div class="row col-xs-12"
+                                     style="margin-top: 20px; display: block;margin-left:auto;margin-right: auto;">
+                                    {% for tampon in tampons %}
+                                        {% if loop.index > 5 %}
+                                            <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
+                                                <input class="form-group pizza checkbox-tampon-{{ tampon.id }}" id="checkbox-tampon-{{ tampon.id }}" style="display: none;" type="checkbox"
+                                                       data-id="{{ tampon.id }}"
+                                                       {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
+
+                                                    <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
+                                                         src="{{ asset('images/') }}{{ tampon.image }}" width="45"
+                                                         height="45" alt="">
+
+                                            </label>
                                         {% endif %}
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <div id="div-pizza-gratuite" style="display: none;">
-                                <label for="pizza-gratuite"><span style="font-size: 1.5em;margin-right: 10px;">Pizza gratuite</span></label>
-                            <input id="pizza-gratuite" type="checkbox">
+                                    {% endfor %}
+                                </div>
+                                <div id="div-pizza-gratuite" style="display: none;">
+                                    <label for="pizza-gratuite"><span style="font-size: 1.5em;margin-right: 10px;">Pizza gratuite</span></label>
+                                    <input id="pizza-gratuite" type="checkbox">
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Dernière Pizza achetée
+                            le {{ carte.dernier_tampon|date('d/m/Y') }}</small>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Dernière Pizza achetée le {{ carte.dernier_tampon|date('d/m/Y') }}</small>
-                </div>
-            </div>
 
+
+            </div>
 
         </div>
 
     </div>
-
-    </div>
     <style>
-        .pizza-cadre{
+        .pizza-cadre {
             display: inline-block;
             margin-left: 10px;
             margin-right: 10px;
@@ -156,5 +190,24 @@
             height: 50px;
             border: 1px solid black;
             background-color: white;
+        } #customFile .custom-file-control:lang(en)::after {
+                      content: "Select file...";
+                  }
+
+        #customFile .custom-file-control:lang(en)::before {
+            content: "Click me";
+        }
+
+        /*when a value is selected, this class removes the content */
+        .custom-file-control.selected:lang(en)::after {
+            content: "" !important;
+        }
+
+        .custom-file {
+            overflow: hidden;
+        }
+        .custom-file-control {
+            white-space: nowrap;
         }</style>
+
 {% endblock %}

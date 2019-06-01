@@ -29,10 +29,30 @@
                 <input type="text" name="codepostal" id="rue" class="form-control col-sm-4 inline" placeholder="code postal">
                 <input type="text" name="ville" id="rue" class="form-control col-sm-4 inline" placeholder="ville">
             </div>
+
+                 <div class="form-group">
+                     <input type='file' onchange="readURL(this);" />
+                     <img id="blah" src="http://placehold.it/180" alt="your image" />
+                 </div>
+
             <div class="form-row-last">
                 <input type="submit" name="register" class="register btn btn-primary" value="Enregistrer">
             </div>
             </div>
         </form>
     </div>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 {% endblock %}

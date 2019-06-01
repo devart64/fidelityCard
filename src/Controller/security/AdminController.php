@@ -163,7 +163,21 @@ $clients = $array;
 
         $tampons = $array;
 
-        return $this->render('administration/compteutilisateur.html.twig', ['client' => $client, 'carte' => $carte, 'tampons'=>$tampons]);
+        $requete = "SELECT * FROM imageTampon";
+        $statment= $conn->prepare($requete);
+        $statment->execute();
+        $statment->setFetchMode(PDO::FETCH_OBJ);
+
+        $arrayImageTampon = array();
+        while ($data = $statment->fetch()) {
+            $arrayImageTampon[] = $data;
+        }
+        $listeImagesTampon = $arrayImageTampon;
+        return $this->render('administration/compteutilisateur.html.twig', [
+            'client' => $client,
+            'carte' => $carte,
+            'tampons'=>$tampons,
+            'listeImageTampon' => $listeImagesTampon]);
     }
 
     /**
@@ -176,17 +190,21 @@ $clients = $array;
         // on update celui ci is``Cocher = 1
         $conn = $this->getDoctrine()->getConnection();
         $emailManager = new EmailManager($conn);
-        $id = $request->get('idCarteDeFidelite');
-        $nbTampon = $request->get('nbTampon');
+        $idCarteFidelity = $request->get('idCarteDeFidelite');
+        $id = $request->get('idTampon');
+        $isCocher = $request->get('isCocher');
+        $image = $request->get('image');
         $entityManager = $this->getDoctrine()->getManager();
-        $carte = $this->getDoctrine()
-            ->getRepository(CarteDeFidelite::class)
+        $tampon = $this->getDoctrine()
+            ->getRepository(Tampon::class)
             ->find($id);
-        $carte->setDernierTampon(time());
-        $carte->setNbTampon($request->get('nbTampon'));
-        $entityManager->persist($carte);
+        $tampon->setIdCarteFidelite($idCarteFidelity);
+       $tampon->setIsCocher($isCocher);
+       $tampon->setDateCreation(time());
+       $tampon->setImage($image);
+        $entityManager->persist($tampon);
         $entityManager->flush();
-        if ($nbTampon == 10) {
+       /* if ($nbTampon == 10) {
 
             // si envoi mail prochaine pizza gratuite
             // si checkbox pizza gruite checjked
@@ -195,7 +213,7 @@ $clients = $array;
             $idClient = $carte->getIdClient();
             $client = $this->getDoctrine()->getRepository(Client::class)->find($idClient);
             $emailManager->emailPizzaGratuite($client);
-        }
+        }*/
         return new Response("");
     }
 

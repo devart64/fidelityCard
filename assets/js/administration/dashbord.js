@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    coherenceCheckbox();
+    //coherenceCheckbox();
+    $('.image-item-tampon').click();
 })
 
 $('.zone-cliquable').on('click', function () {
@@ -13,14 +14,38 @@ $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
-$(document).on('change', '.pizza', function () {
+$(document).on('click', '.pizza', function () {
     // envoi de l'id du tampon a checked
-    let nbTampon = $('.pizza:checked').length;
+    let image = $('#image-tampon-selected').val();
+
+    let idTampon = $(this).attr('data-id');
+
     let idCarteDeFidelite = $("#carte_id").val();
+    let isCocher = "";
+
+    if ($('#checkbox-tampon-'+idTampon).is(':checked')) {
+       isCocher = 1;
+        $('.image-tampon-'+idTampon).css('display', 'inline-block').attr('src', '/images/'+image);
+    } else {
+        isCocher = 0;
+        $('.image-tampon-'+idTampon).css('display', 'none');
+        image = "";
+    }
     let url = $("#url-tampon").val();
-    $.post(url, {nbTampon:nbTampon, idCarteDeFidelite:idCarteDeFidelite});
+    //alert(idTampon);
+  $.post(url, {idTampon:idTampon, idCarteDeFidelite:idCarteDeFidelite, isCocher:isCocher, image:image});
   coherenceCheckbox();
 });
+
+function gestioncheckbox(idtampon) {
+
+}
+
+$(document).on('change', '.image-item-tampon', function () {
+   $("#image-utilisee").attr('src', '/images/'+$(this).attr('data-image') );
+   $('#image-tampon-selected').val($(this).attr('data-image'));
+   $(".dropdown-menu").css('display', 'none');
+})
 
 /**
  * fonction de gestion de la cohérence des checkbox de la carte de fidélité
@@ -105,6 +130,12 @@ $(document).on('keyup', '#your-email', throttle(function(){
     verifDoublonMail(emailAVerifier);
 }, 1000));
 
+$('.custom-file-input').on('change',function(){
+    var fileName = document.getElementById("exampleInputFile").files[0].name;
+    $(this).next('.form-control-file').addClass("selected").html(fileName);
+});
+console.log($('.pizza:checked').length);
+
 /**
  * funciton  de vérification des doublons de mail
  * @param mail
@@ -132,7 +163,7 @@ function verifDoublonMail(mail) {
 function verifTelphone(telephoner) {
 // a voir si il estv possible pour deu compte d'avoir len meme numéro
 }
-$(document).on('click', '.pizza-cadre', function () {
+/*$(document).on('click', '.pizza-cadre', function () {
     let image = $(".image-template");
     if ($(this).children('.image-tampon').is(':visible') === false) {
         $(this).children('.image-tampon').fadeIn();
@@ -146,7 +177,7 @@ $(document).on('click', '.pizza-cadre', function () {
     let url = $("#url-tampon").val();
     $.post(url, {nbTampon:nbTampon, idCarteDeFidelite:idCarteDeFidelite});
     coherenceCheckbox();
-});
+});*/
 
 //Méthode utilitaire permettant de retarder l'execution d'un évènement
 function throttle(f, delay) {
@@ -160,3 +191,5 @@ function throttle(f, delay) {
             delay || 500);
     };
 }
+
+
