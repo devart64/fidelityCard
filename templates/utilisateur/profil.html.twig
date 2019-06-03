@@ -10,6 +10,7 @@
         {{ encore_entry_link_tags('app') }}
 
     {% endblock %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body class="gray-bg">
 <div id="page-content-wrapper">
@@ -80,11 +81,83 @@
                 </div>
             </div>
         </div>
+        <br><br>
+        <div class="card-group col-xs-6 col-offset-2">
+        <div class="card">
 
+            <br/>
+
+
+            <br/><br/>
+            <h5 class="card-title commentaire-pizza">Encore <span class="nbPizzaRestante">0</span> pizza avant
+                la pizza offerte !</h5>
+            <h3 class="pizza-gratuite" style="display: none;font-family: 'VosterAlt'; font-weight: 600">La
+                prochaine Pizza sera offerte !</h3>
+            <div class="card-body">
+                <h5 class="card-title">Carte n°1</h5>
+                <div class="card-text">
+
+                    <div class="container col-xs-12"
+                         style="border: 1px solid rgba(233,162,137, 0.125);background-color:rgba(233,162,137, 0.1);text-align: center">
+                        <div class="row col-xs-12"
+                             style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
+                            <h3>La fidélité n'est souvent qu'une question d'habitude</h3>
+                            {% for tampon in tampons %}
+                                {% if loop.index <= 5 %}
+                                    <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
+
+
+                                        <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
+                                             src="{{ asset('images/tampons/') }}{{ tampon.image }}" width="45"
+                                             height="45" alt="">
+
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="row col-xs-12"
+                             style="margin-top: 20px; display: block;margin-left:auto;margin-right: auto;">
+                            {% for tampon in tampons %}
+                                {% if loop.index > 5 %}
+                                    <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
+                                        <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
+                                             src="{{ asset('images/tampons/') }}{{ tampon.image }}" width="45"
+                                             height="45" alt="">
+
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div id="div-pizza-gratuite" style="display: none;">
+                            <label for="pizza-gratuite"><span style="font-size: 1.5em;margin-right: 10px;">Pizza gratuite</span></label>
+                            <input id="pizza-gratuite" type="checkbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                {% if  carte.dernier_tampon is defined%}
+                <small class="text-muted">Dernière Pizza achetée
+                    le {{ carte.dernier_tampon|date('d/m/Y') }}</small>
+                {% endif %}
+            </div>
+        </div>
+        </div>
 
     </div>
 
 </div>
+<style>
+    .pizza-cadre {
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 50px;
+        height: 50px;
+        border: 1px solid black;
+        background-color: white;
+    }
+    </style>
 
 </body>
 </html>

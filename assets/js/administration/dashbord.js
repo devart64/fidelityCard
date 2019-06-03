@@ -1,19 +1,22 @@
+
+let rootPath = "/images/";
 $(document).ready(function () {
-    //coherenceCheckbox();
+    coherenceCheckbox();
     $('.image-item-tampon').click();
-})
+});
 
 $('.zone-cliquable').on('click', function () {
     var id = $(this).attr('data-id');
     console.log(id);
-
     // trouver pourtquoi le cliqueq ne foncitonne pas
     $('#btn-cache-'+id).click();
 });
+
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
+
 $(document).on('click', '.pizza', function () {
     // envoi de l'id du tampon a checked
     let image = $('#image-tampon-selected').val();
@@ -25,7 +28,7 @@ $(document).on('click', '.pizza', function () {
 
     if ($('#checkbox-tampon-'+idTampon).is(':checked')) {
        isCocher = 1;
-        $('.image-tampon-'+idTampon).css('display', 'inline-block').attr('src', '/images/'+image);
+        $('.image-tampon-'+idTampon).css('display', 'inline-block').attr('src', '/images/tampons/'+image);
     } else {
         isCocher = 0;
         $('.image-tampon-'+idTampon).css('display', 'none');
@@ -37,15 +40,11 @@ $(document).on('click', '.pizza', function () {
   coherenceCheckbox();
 });
 
-function gestioncheckbox(idtampon) {
-
-}
-
 $(document).on('change', '.image-item-tampon', function () {
-   $("#image-utilisee").attr('src', '/images/'+$(this).attr('data-image') );
+   $("#image-utilisee").attr('src', '/images/tampons/'+$(this).attr('data-image') );
    $('#image-tampon-selected').val($(this).attr('data-image'));
    $(".dropdown-menu").css('display', 'none');
-})
+});
 
 /**
  * fonction de gestion de la cohérence des checkbox de la carte de fidélité
@@ -100,7 +99,6 @@ $(document).on('keyup', '#input-recherche', throttle(function () {
         $('.liste-client-loader').css('display', 'none');
         $('.clients-list').css('display', 'block');
     }
-
 }));
 
 $(document).on('click', '#dropdownMenuButton', function () {
@@ -191,5 +189,8 @@ function throttle(f, delay) {
             delay || 500);
     };
 }
+
+
+
 
 

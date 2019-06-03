@@ -11,6 +11,7 @@ namespace App\Controller\security;
 use App\Entity\CarteDeFidelite;
 use App\Entity\Client;
 use App\Entity\Tampon;
+use App\Entity\User;
 use App\manager\EmailManager;
 use PDO;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,15 +73,14 @@ $clients = $array;
     }
 
 
-
-
     /**
      * @Route("tableaudebord/ajout-clients", name="ajoutclient")
      * @param Request $request
+     * @param \Swift_Mailer $mailer
      * @return Response
      * @throws \Exception
      */
-    public function ajoutClient(Request $request)
+    public function ajoutClient(Request $request, \Swift_Mailer $mailer)
     {
         $entityManager = $this->getDoctrine()->getManager();
         if ($request->getMethod() == "POST") {
@@ -99,9 +99,24 @@ $clients = $array;
             $client->setCodepostall($request->get('codepostal'));
             $client->setVille($request->get('ville'));
             $client->setTelephone($request->get('telephone'));
-
+            // a rendre dynamique une fois le module d'import opérationnel
+            $client->setImage("");
             $entityManager->persist($client);
             $entityManager->flush();
+
+            // création du compte utilisateur
+            $utilisateur = new User();
+            $utilisateur->setEmail($request->get('email'));
+            $utilisateur->setUsername($request->get('prenom'). ' ' . substr($request->get('nom'), 0) );
+            $utilisateur->setPassword("");
+            $utilisateur->setIdClient($client->getId());
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+
+            /**
+             * mettre en place l'envoi email pour génération du mot de passe utiiisateur
+             */
+
             if (!$request->get('idClient')) {
                 $carteDeFidelite = new CarteDeFidelite();
                 $carteDeFidelite->setCreatedAt(new \DateTime());
@@ -126,7 +141,16 @@ $clients = $array;
                  * envoi d'un mail  à l'adresse renseignée
                  * avec un lien de création de mot de passe afin de valider le compte$
                  * et de pouvoir si connecter
+                 * parametre get {idUser}
+                 * envoyer un a href="/mot-de-passe6" ou 6 est l'id user
                  */
+                $subject = "test";
+                $message = \Swift_Message::newInstance()
+                    ->setSubject($subject)
+                    ->setFrom('stephendupre64@gmail.com')
+                    ->setTo('stephendupre64@gmail.com')
+                    ->setBody("testing");
+                $this->get('mailer')->send($message);
             }
 
             return $this->redirectToRoute('compteclient', ['id' => $client->getId()]);

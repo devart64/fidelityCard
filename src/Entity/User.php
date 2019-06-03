@@ -53,9 +53,18 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $idClient;
+
+
+
     public function __construct() {
         $this->roles = array('ROLE_USER');
     }
+
+
 
     // other properties and methods
 
@@ -114,6 +123,24 @@ class User implements UserInterface
     {
         return $this->roles;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdClient()
+    {
+        return $this->idClient;
+    }
+
+    /**
+     * @param mixed $idClient
+     */
+    public function setIdClient($idClient)
+    {
+        $this->idClient = $idClient;
+    }
+
+
 
     public function eraseCredentials()
     {

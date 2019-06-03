@@ -30,29 +30,315 @@
                 <input type="text" name="ville" id="rue" class="form-control col-sm-4 inline" placeholder="ville">
             </div>
 
-                 <div class="form-group">
-                     <input type='file' onchange="readURL(this);" />
-                     <img id="blah" src="http://placehold.it/180" alt="your image" />
-                 </div>
+                <div id="drag-and-drop-importer-fichier-csv" class="dm-uploader text-center">
+                    <h3 class="mb-5 mt-5 text-muted">Glissez &amp; déposez vos fichiers ici</h3>
 
+                    <div id="fileList"></div>
+
+                    <img id='output'>
+                    <input type="hidden" id="titre-original-document" name="titre-original">
+
+                    <div class="btn">
+                        <span>Sélectionnez vos fichiers manuellement</span>
+                        <input id="file" name="file" title="Cliquez pour sélectionner les fichiers à importer." type="file" onchange="updateList(), checkFileUploaded(this), openFile(event)">
+                        <input type='hidden' id='filesize' name='filesize' value='0'>
+
+                    </div>
+                </div>
             <div class="form-row-last">
                 <input type="submit" name="register" class="register btn btn-primary" value="Enregistrer">
             </div>
             </div>
         </form>
     </div>
-    <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+        <script>
+        updateList = function() {
+            var input = document.getElementById('file');
+            var output = document.getElementById('fileList');
 
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result);
-                };
+            for (var i = 0; i < input.files.length; ++i) {
+                output.innerHTML = input.files.item(i).name ;
+            }
 
-                reader.readAsDataURL(input.files[0]);
+        }
+
+    </script>
+    <style>
+        .dm-uploader {
+            border: 0.25rem dashed #00a4dd;
+            width: 100%;
+            height: 300px;
+            margin-top: 30px;
+            padding: 15px;
+            position: relative;
+        }
+
+        .dm-uploader{
+            cursor:default;
+            -webkit-touch-callout:none;
+            -webkit-user-select:none;
+            -khtml-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none
+        }
+
+        .dm-uploader input[type="file"] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            border: solid transparent;
+            width: 100%;
+            opacity: 0;
+            cursor: pointer;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .dm-uploader .btn {
+            height: 100%;
+            width: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .dm-uploader .btn span {
+            background: #00A4DD;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            top: 70%;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        #fileList {
+            position: absolute;
+            top: 160px;
+            font-size: 0.8em;
+            color: lightgray;
+            width: auto;
+            height: auto;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* FIN DRAG AND DROP MODULE */
+
+        #titre_document_bis, #titre_document {
+            display: inline-block;
+            width: calc(92% - 3px);
+        }
+
+        #popup-modifier label, #popup-ajouter-document label {
+            width: 8%;
+        }
+
+        .box-controls.pull-right {
+            top: 6px;
+            position: absolute;
+            right: 14px;
+            z-index: 2;
+        }
+
+        thead {
+            color: #fff;
+            background: #00A4DD;
+            font-size: 1.2em;
+        }
+
+        tbody .btn.btn-block.btn-success {
+            padding: 6px 8px;
+            margin-right: 4px;
+        }
+
+        .cellule-actions {
+            width: 200px;
+        }
+
+        .table.table-hover {
+            display: none;
+        }
+
+        #tableau-1 {
+            position: relative;
+        }
+
+        .titre-dropdown {
+            padding: 4px 12px;
+            margin: 4px;
+            font-style: italic;
+        }
+
+        .document.grand {
+            width: 300px;
+            height: 300px;
+            font-size: 18px;
+        }
+
+        .document.grand .contenu-options-document {
+            width: 204px;
+        }
+
+        .document.grand .option-document {
+            margin-bottom: 12px;
+        }
+
+        .document.grand .contenu-options-document {
+            font-size: 1.8em;
+        }
+
+        tbody td > .mdi {
+            font-size: 2.2em;
+            position: relative;
+            top: 6px;
+        }
+
+        .nom-document .centrer.centrer-v {
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hauteur-image .mdi.mdi-volume-high.apercu-son {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 10em;
+            left: 50%;
+            color: lightgray;
+        }
+
+        .hauteur-image {
+            position: relative;
+            height: 80%;
+        }
+
+        #file_principal {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            border: solid transparent;
+            width: 100%;
+            opacity: 0;
+            cursor: pointer;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .container-documents {
+            position: relative;
+        }
+
+        #dropzone {
+            display: none;
+            position: absolute;
+            background: #fffc;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            cursor: grabbing;
+            border: 0.25rem dashed #00a4dd;
+            -webkit-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            -moz-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+        }
+
+        #dropzone span {
+            font-size: 2em;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            display: inline-block;
+        }
+
+        .btn-success {
+            color: #fff !important;
+        }
+        @media only screen and (max-width: 767px) {
+            .dm-uploader .btn span {
+                font-size: 0.8em;
+            }
+
+            #drag-and-drop-importer-fichier-csv h3 {
+                font-size: 1.1em;
+            }
+
+            .content-header > .breadcrumb, .content-header > .container > .breadcrumb {
+                position: initial !important;
+                background: none;
+                padding: 0;
+            }
+            .content-header {
+                height: auto;
+            }
+            .document {
+                width: calc(50% - 12px);
+                height: 150px;
+            }
+            .document.grand {
+                width: 100%;
+                height: 260px;
+                margin-right: 0;
+            }
+            .contenu-options-document {
+                width: 92px;
+                font-size: 1em;
+            }
+            .document.grand .contenu-options-document {
+                width: 160px;
+            }
+            #popup-modifier label, #popup-ajouter-document label {
+                width: 100%;
+            }
+            #titre_document_bis, #titre_document {
+                display: inline-block;
+                width: 100%;
+            }
+            .hauteur-image .mdi.mdi-volume-high.apercu-son {
+                font-size: 7em;
+            }
+            .document.grand .contenu-options-document {
+                font-size: 1.4em;
+            }
+            #overlay h1 {
+                font-size: 1.2em;
+            }
+            .navbar-custom-menu .navbar-nav li > a.dropdown-toggle, .navbar-custom-menu .navbar-nav > li:last-child > a, .navbar-custom-menu .navbar-nav > .search-box > a {
+                padding: 0px 8px;
+            }
+            .document:nth-child(2n) {
+                margin-right: 0;
+            }
+            .document img, .document .nom-document, .document .apercu-son {
+                opacity: 0.1;
+                -webkit-transition: opacity .5s ease-in-out;
+                -moz-transition: opacity .5s ease-in-out;
+                -ms-transition: opacity .5s ease-in-out;
+                -o-transition: opacity .5s ease-in-out;
+                transition: opacity .5s ease-in-out;
+            }
+            .document .options-document {
+                opacity: 1;
+            }
+            .dropdown.credits {
+                display: none;
+            }
+            .info-doc {
+                display: none;
             }
         }
-    </script>
+    </style>
 {% endblock %}

@@ -102,34 +102,37 @@
                     <input type="hidden" id="carte_id" value="{{ carte.id }}">
                     <input type="hidden" id="url-tampon" value="{{ path('ajouttampon') }}">
                     <br/>
+                    <div>
                     <div class="dropdown" style="display: inline-block; max-width: 20%">
                         <button class="btn btn-primary" type="button" id="dropdownMenuButton">
                             Choisissez un tampon !
                         </button>
+
                         <div class="dropdown-menu">
                             {% for imagetampon in listeImageTampon %}
                                 <a class="dropdown-item"><input id="tampon-{{ imagetampon.nom }}" class="image-item-tampon" data-image="{{ imagetampon.image }}" type="radio" name="image-tampon" value="{{ imagetampon.image }}"><label for="tampon-{{ imagetampon.nom }}"><img
-                                            src="{{ asset('images') }}/{{ imagetampon.image }}" width="35" height="35"
+                                            src="{{ asset('images/tampons') }}/{{ imagetampon.image }}" width="35" height="35"
                                             alt=""> - {{ imagetampon.nom }}</label></a>
                             {% endfor %}
                         </div>
                     </div>
                     <div style="display: inline-block;">Vous utilisez le tampon : <img id="image-utilisee" src="" width="35" height="35" alt=""></div>
+                    </div>
                     <input type="hidden" id="image-tampon-selected">
-                    <br><br>
+                    <br/><br/>
                     <h5 class="card-title commentaire-pizza">Encore <span class="nbPizzaRestante">0</span> pizza avant
-                        la pizza gratuite !</h5>
+                        la pizza offerte !</h5>
                     <h3 class="pizza-gratuite" style="display: none;font-family: VosterAlt; font-weight: 600">La
-                        prochaine Pizza sera gratuite !</h3>
+                        prochaine Pizza sera offerte !</h3>
                     <div class="card-body">
                         <h5 class="card-title">Carte n°1</h5>
                         <div class="card-text">
-                            <img class="image-template" style="display: none;" src="{{ asset('images/pizza.png') }}"
-                                 width="45" height="45" alt="">
+
                             <div class="container col-xs-12"
                                  style="border: 1px solid rgba(233,162,137, 0.125);background-color:rgba(233,162,137, 0.1);text-align: center">
                                 <div class="row col-xs-12"
                                      style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
+                                    <h3>La fidélité n'est souvent qu'une question d'habitude</h3>
                                     {% for tampon in tampons %}
                                         {% if loop.index <= 5 %}
                                             <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
@@ -138,7 +141,7 @@
                                                        {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
 
                                                 <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
-                                                     src="{{ asset('images/') }}{{ tampon.image }}" width="45"
+                                                     src="{{ asset('images/tampons/') }}{{ tampon.image }}" width="45"
                                                      height="45" alt="">
 
                                             </label>
@@ -155,7 +158,7 @@
                                                        {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
 
                                                     <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
-                                                         src="{{ asset('images/') }}{{ tampon.image }}" width="45"
+                                                         src="{{ asset('images/tampons/') }}{{ tampon.image }}" width="45"
                                                          height="45" alt="">
 
                                             </label>

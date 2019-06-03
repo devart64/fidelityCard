@@ -2,6 +2,7 @@
 
 namespace App\Controller\security;
 
+use App\Entity\Client;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,5 +62,36 @@ class SecurityController extends AbstractController
             'security/register.html.twig',
             array('form' => $form->createView())
         );
+    }
+
+    /**
+     * @Route("/mot-de-passe{id}", defaults={"id"=null}, name="motdepasse")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function registerPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder, $id){
+
+        if ($request->getMethod() === "POST") {
+            $idUser = $request->request->get('id');
+
+            $user = $this->getDoctrine()->getRepository(User::class)->find($idUser);
+            $password = $passwordEncoder->encodePassword($user, $request->request->get('password'));
+            $user->setPassword($password);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('connexion');
+        } else {
+            var_dump("on rentre ne get !!!");
+            $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+            $username = $user->getUsername();
+            $email = $user->getEmail();
+            return $this->render('security/enregistrementmdp.html.twig', ['username' => $username, 'email' => $email, 'id' =>$id]);
+        }
+
+
     }
 }
