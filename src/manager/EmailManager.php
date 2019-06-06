@@ -4,6 +4,7 @@
 namespace App\manager;
 
 use App\Entity\Client;
+use Twig\Environment;
 
 class EmailManager
 {
@@ -11,19 +12,36 @@ class EmailManager
      * @var $connexion;
      */
     private $connexion;
+    /**
+     * @var \Swift_Mailer
+     */
+    private $mailer;
+    /**
+     * @var Environment
+     */
+    private $renderer;
 
-    public function __construct( $connexion)
+    public function __construct( \Swift_Mailer $mailer, Environment $renderer)
     {
-        $this->connexion = $connexion;
+
+
+        $this->mailer = $mailer;
+        $this->renderer = $renderer;
     }
 
     /**
      * @param Client $client
+     * @param $subject
+     * @param $body
      */
-    public function envoiEmail(Client $client, $subject, $message) {
+    public function envoiEmail(Client $client, $subject, $body) {
         $emailClient = $client->getEmail();
-        mail($emailClient, $subject, $message);
-        var_dump("email envoyé");
+        $message = (new \Swift_Message($subject))
+            ->setFrom($emailClient)
+            ->setTo('stephendupre64@gmail.com')
+            ->setReplyTo($emailClient)
+            ->setBody($body, ' text/html');
+        $this->mailer->send($message);
     }
 
     public function emailPizzaGratuite(Client $client) {

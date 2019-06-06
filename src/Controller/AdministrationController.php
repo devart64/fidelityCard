@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\CarteDeFidelite;
 use App\Entity\Client;
 use App\manager\EmailManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdministrationController extends AbstractController
@@ -31,5 +31,18 @@ class AdministrationController extends AbstractController
             'nombreClient' => $nombreClient['COUNT(*)'],
             'nombrePizza' => $nombrePizzaVendues['COUNT(*)'],
         ]);
+    }
+
+    /**
+     * @Route("/testEmail", name="testemail")
+     * @param EmailManager $emailManager
+     * @return Response
+     */
+    public function testEmail(EmailManager $emailManager) {
+        //$conn = $this->getDoctrine()->getConnection();
+        $client = $this->getDoctrine()->getRepository(Client::class)->find(16);
+        $body = $this->render('email/emails/creationcompteemail.html.twig');
+        $emailManager->envoiEmail($client, 'Création de votre compte client', $body);
+        return new Response("");
     }
 }

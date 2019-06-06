@@ -18,32 +18,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><h1>Entre Nous</h1></a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('accueil') }}">Accueil <span class="sr-only">(current)</span></a>
-                </li>
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('profil') }}">Mon compte</a>
-                </li>
-                {% endif %}
                 <li class="nav-item">
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                         <a class="nav-link " href="/deconnexion" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Déconnexion
-                        </a>
-                    {% else %}
-                        <a class="nav-link" href="/connexion" id="navbarDropdown" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            Connexion
                         </a>
                     {% endif %}
                     {# <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -54,7 +36,7 @@
                      </div>#}
                 </li>
             </ul>
-        </div>
+
     </nav>
 </div>
 <div class="ibox-content">
@@ -97,32 +79,37 @@
                 <h5 class="card-title">Carte n°1</h5>
                 <div class="card-text">
 
-                    <div class="container col-xs-12"
-                         style="border: 1px solid rgba(233,162,137, 0.125);background-color:rgba(233,162,137, 0.1);text-align: center">
+                    <div class="container col-md-8 col-xs-12"
+                         style="border: 1px solid black;text-align: center">
+                        <h3 style="color: black">La fidélité n'est souvent qu'une question d'habitude</h3>
                         <div class="row col-xs-12"
-                             style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
-                            <h3>La fidélité n'est souvent qu'une question d'habitude</h3>
+                             style="margin-top: 50px; display: flex;justify-content:  center;">
+
                             {% for tampon in tampons %}
                                 {% if loop.index <= 5 %}
                                     <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
+                                        <input class="form-group pizza checkbox-tampon-{{ tampon.id }}" id="checkbox-tampon-{{ tampon.id }}" style="display: none;" type="checkbox"
+                                               data-id="{{ tampon.id }}"
+                                               {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
 
-
-                                        <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
-                                             src="{{ asset('images/tampons/') }}{{ tampon.image }}" width="45"
-                                             height="45" alt="">
+                                        <img class="image-tampon-{{ tampon.id }} image-tampon" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
+                                             src="{{ asset('images/tampons/') }}{{ tampon.image }}"  alt="">
 
                                     </label>
                                 {% endif %}
                             {% endfor %}
                         </div>
                         <div class="row col-xs-12"
-                             style="margin-top: 20px; display: block;margin-left:auto;margin-right: auto;">
+                             style="margin-top: 20px; display: flex;justify-content:  center;">
                             {% for tampon in tampons %}
                                 {% if loop.index > 5 %}
                                     <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
-                                        <img class="image-tampon-{{ tampon.id }}" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
-                                             src="{{ asset('images/tampons/') }}{{ tampon.image }}" width="45"
-                                             height="45" alt="">
+                                        <input class="form-group pizza checkbox-tampon-{{ tampon.id }}" id="checkbox-tampon-{{ tampon.id }}" style="display: none;" type="checkbox"
+                                               data-id="{{ tampon.id }}"
+                                               {% if tampon.is_Cocher == 1 %}checked="checked"{% endif %}>
+
+                                        <img class="image-tampon-{{ tampon.id }} image-tampon" {% if tampon.is_Cocher == 1 %}style="display: inline-block;"{% else %}style="display: none;" {% endif %}
+                                             src="{{ asset('images/tampons/') }}{{ tampon.image }}"  alt="">
 
                                     </label>
                                 {% endif %}
@@ -156,6 +143,26 @@
         height: 50px;
         border: 1px solid black;
         background-color: white;
+    }
+    .image-tampon{
+        width: 35px;
+        height: 35px;
+    }
+
+    @media only screen and (max-width: 640px) {
+        .pizza-cadre {
+            display: inline-block;
+            margin-left: 10px;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            border: 1px solid black;
+            background-color: white;
+        }
+        .image-tampon{
+            width: 25px;
+            height: 25px;
+        }
     }
     </style>
 

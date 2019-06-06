@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block content %}
 <div class="ibox-content">
+{#
     <span class="text-muted small float-right">Dernière modification: <i class="fa fa-clock-o"></i> 14h10 lundi 7 avril 2019</span>
+#}
     <h2>Clients</h2>
 
     <div class="input-group">
@@ -30,7 +32,7 @@
                             </thead>
                             <tbody>
                             {% for lettre in alphabet %}
-                                <tr class="zone-cliquable" style="color:white;background-color: #E9A289;opacity: 0.3;border-bottom:1px solid black">
+                                <tr class="zone-cliquable" style="color:white;background-color: black;opacity: 0.8;border-bottom:1px solid black">
                                     <td><h1>{{ lettre|upper }}</h1></td>
                                     <td></td>
                                     <td></td>

@@ -17,6 +17,7 @@ class DefaultController extends AbstractController
  */
 public function accueil() {
    if($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')){
+       
        return new $this->redirectToRoute('tableaudebord');
    } else {
     return $this->render('accueil.html.twig');

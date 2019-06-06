@@ -77,10 +77,11 @@ $clients = $array;
      * @Route("tableaudebord/ajout-clients", name="ajoutclient")
      * @param Request $request
      * @param \Swift_Mailer $mailer
+     * @param EmailManager $emailManager
      * @return Response
      * @throws \Exception
      */
-    public function ajoutClient(Request $request, \Swift_Mailer $mailer)
+    public function ajoutClient(Request $request, \Swift_Mailer $mailer, EmailManager $emailManager)
     {
         $entityManager = $this->getDoctrine()->getManager();
         if ($request->getMethod() == "POST") {
@@ -107,7 +108,7 @@ $clients = $array;
             // création du compte utilisateur
             $utilisateur = new User();
             $utilisateur->setEmail($request->get('email'));
-            $utilisateur->setUsername($request->get('prenom'). ' ' . substr($request->get('nom'), 0) );
+            $utilisateur->setUsername($request->get('prenom'). $client->getId() );
             $utilisateur->setPassword("");
             $utilisateur->setIdClient($client->getId());
             $entityManager->persist($utilisateur);
@@ -144,13 +145,9 @@ $clients = $array;
                  * parametre get {idUser}
                  * envoyer un a href="/mot-de-passe6" ou 6 est l'id user
                  */
-                $subject = "test";
-                $message = \Swift_Message::newInstance()
-                    ->setSubject($subject)
-                    ->setFrom('stephendupre64@gmail.com')
-                    ->setTo('stephendupre64@gmail.com')
-                    ->setBody("testing");
-                $this->get('mailer')->send($message);
+                $body = $this->render('email/emails/creationcompteemail.html.twig', ['id' => $utilisateur->getId()]);
+                $emailManager->envoiEmail($client, 'Création de votre compte client', $body);
+
             }
 
             return $this->redirectToRoute('compteclient', ['id' => $client->getId()]);
@@ -213,7 +210,6 @@ $clients = $array;
         // on récupère l'id du tampon
         // on update celui ci is``Cocher = 1
         $conn = $this->getDoctrine()->getConnection();
-        $emailManager = new EmailManager($conn);
         $idCarteFidelity = $request->get('idCarteDeFidelite');
         $id = $request->get('idTampon');
         $isCocher = $request->get('isCocher');
@@ -249,7 +245,8 @@ $clients = $array;
     public function rechercheClient(Request $request) {
         $texteRecherche = $request->get('texteArechercher');
         $conn = $this->getDoctrine()->getConnection();
-        $requete = "SELECT * FROM client  where nom LIKE '%".$texteRecherche."%' OR prenom LIKE  '%".$texteRecherche."%'";
+       // $requete = "SELECT * FROM client  where nom LIKE '%".$texteRecherche."%' OR prenom LIKE  '%".$texteRecherche."%' OR telephone LIKE '%".$texteRecherche."%'";
+        $requete = "SELECT * FROM client  where telephone LIKE '%".$texteRecherche."%' OR nom LIKE '%".$texteRecherche."%' OR prenom LIKE  '%".$texteRecherche."%' OR email LIKE '%".$texteRecherche."%'";
         $statment= $conn->prepare($requete);
         $statment->execute();
         $statment->setFetchMode(PDO::FETCH_OBJ);

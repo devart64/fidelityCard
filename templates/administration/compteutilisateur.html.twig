@@ -65,7 +65,7 @@
 
                         <div class="form-group">
                             <label for="your-phone">Téléphone</label>
-                            <input type="tel" name="telephone" id="your-phone" class="form-control"
+                            <input type="tel" name="telephone" id="your-phone" maxlength="10" required pattern="{2,6}" class="form-control"
                                    placeholder="Téléphone" value="{{ client.telephone }}">
                         </div>
                         <h3 id="tel-exist" class="error" style="color: red;display: none;">Cette numéro existe déjà
@@ -128,11 +128,12 @@
                         <h5 class="card-title">Carte n°1</h5>
                         <div class="card-text">
 
-                            <div class="container col-xs-12"
-                                 style="border: 1px solid rgba(233,162,137, 0.125);background-color:rgba(233,162,137, 0.1);text-align: center">
+                            <div class="container container-carte col-md-8 col-xs-12"
+                                 style="border: 1px solid black;text-align: center">
+                                <h3 style="color: black">La fidélité n'est souvent qu'une question d'habitude</h3>
                                 <div class="row col-xs-12"
-                                     style="margin-top: 50px; display: block;margin-left:auto;margin-right: auto;">
-                                    <h3>La fidélité n'est souvent qu'une question d'habitude</h3>
+                                     style="margin-top: 50px; display: flex;justify-content:  center;">
+
                                     {% for tampon in tampons %}
                                         {% if loop.index <= 5 %}
                                             <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
@@ -149,7 +150,7 @@
                                     {% endfor %}
                                 </div>
                                 <div class="row col-xs-12"
-                                     style="margin-top: 20px; display: block;margin-left:auto;margin-right: auto;">
+                                     style="margin-top: 20px; display: flex;justify-content:  center;">
                                     {% for tampon in tampons %}
                                         {% if loop.index > 5 %}
                                             <label for="checkbox-tampon-{{ tampon.id }}" class="pizza-cadre" data-id="{{ tampon.id }}">
@@ -211,6 +212,12 @@
         }
         .custom-file-control {
             white-space: nowrap;
-        }</style>
+        }
+   /* .container-carte{
+        background: url('{{ asset('images/entrenous/logo.png') }}');
+        -webkit-background-size: 100%;
+        background-size: 100%;
+    }*/
+    </style>
 
 {% endblock %}
